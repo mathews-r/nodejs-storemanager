@@ -5,7 +5,7 @@ const productService = require('../../../src/services/product.service')
 const connection = require("../../../src/models/db/connection");
 
 const { mockProducts } = require("../mockData/mocks");
-const { beforeEach, afterEach } = require("mocha");
+const { afterEach } = require("mocha");
 
 describe("Testando service de products", () => {
 
