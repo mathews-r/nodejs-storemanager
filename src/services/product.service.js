@@ -1,18 +1,23 @@
-const { productModel } = require('../models');
+const statusCode = require('../helpers/statusCode');
+const productModel = require('../models/product.model');
 
 const serviceGetAll = async () => {
   const result = await productModel.modelGetAll();
 
-  if (result.length > 0) {
-    return { message: result, status: 200 };
+  return { message: result, status: statusCode.OK };
+};
+
+const serviceGetById = async (id) => {
+  const result = await productModel.modelGetById(id);
+
+  if (result) {
+    return { type: null, message: result };
   }
 
-  return {
-    message: 'Not Found',
-    status: 400,
-  };
+  return { type: 'error', message: 'Product not found' }; 
 };
 
 module.exports = {
   serviceGetAll,
+  serviceGetById,
 };
