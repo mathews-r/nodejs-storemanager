@@ -17,7 +17,14 @@ const serviceGetById = async (id) => {
   return { type: 'error', message: 'Product not found' }; 
 };
 
+const serviceInsert = async (name) => {
+  const result = await productModel.modelInsert(name);
+
+  return { type: null, message: result };
+};
+
 module.exports = {
   serviceGetAll,
   serviceGetById,
+  serviceInsert,
 };

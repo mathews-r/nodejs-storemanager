@@ -38,9 +38,7 @@ describe("Testando controller de products", () => {
           const res = {};
           res.status = sinon.stub().returns(res);
           res.json = sinon.stub().returns();
-          sinon
-            .stub(productService, "serviceGetById")
-            .resolves({ type: 'error', message: 'Product not found' });
+          sinon.stub(productService, "serviceGetById").resolves({ type: 'error', message: 'Product not found' });
 
           await productController.controllerGetById(req, res);
           expect(res.status.calledWith(200)).to.be.equal(false);
