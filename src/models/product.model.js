@@ -23,11 +23,11 @@ const modelInsert = async (name) => {
 };
 
 const modelDelete = async (id) => {
-    await connection.execute(
-    'DELETE FROM StoreManager.sales WHERE id = ?', [id],
-  );
+  const [{ affectedRows }] = await connection.execute(
+    'DELETE FROM StoreManager.products WHERE id = ?', [id],
+   );
 
-  return 'DELETED';
+  return affectedRows;
 };
 
 module.exports = {

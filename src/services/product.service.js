@@ -26,7 +26,7 @@ const serviceInsert = async (name) => {
 const serviceDelete = async (id) => {
   const result = await productModel.modelDelete(id);
 
-  if (result) {
+  if (result === 0) {
     return { type: 'error', message: 'Product not found' };
   }
 

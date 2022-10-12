@@ -25,9 +25,11 @@ const controllerInsert = async (req, res) => {
 };
 
 const controllerDelete = async (req, res) => {
-  const { message } = await productService.serviceDelete();
+  const { id } = req.params;
 
-  if (!message) return res.status(404).json({ message });
+  const { type, message } = await productService.serviceDelete(id);
+
+  if (type) return res.status(404).json({ message });
 
   res.status(204).json();
 };
