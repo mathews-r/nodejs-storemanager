@@ -4,7 +4,7 @@ const productModel = require("../../../src/models/product.model");
 const productService = require('../../../src/services/product.service')
 const connection = require("../../../src/models/db/connection");
 
-const { mockProducts } = require("../mockData/mocks");
+const { mockProducts, newInsertMock } = require("../mockData/mocks");
 const { afterEach } = require("mocha");
 
 describe("Testando service de products", () => {
@@ -29,7 +29,16 @@ describe("Testando service de products", () => {
           const result = await productService.serviceGetById(1);
           expect(result.message).to.eq('Product not found');
     });
-
   });
+
+  describe('Testa inserir novo produto', () => {
+    it('Testa se ao inserir um novo produto retorna o id e o nome', async () => {
+      sinon.stub(productModel, 'modelInsert').resolves([newInsertMock]);
+
+      const result = await productService.serviceInsert({ name: "Teste do Mock" });
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal([newInsertMock]);
+    })
+  })
   afterEach(sinon.restore);
 });

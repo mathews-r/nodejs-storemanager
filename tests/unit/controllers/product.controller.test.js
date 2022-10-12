@@ -4,7 +4,7 @@ const sinon = require("sinon");
 const productService = require("../../../src/services/product.service");
 const productController = require('../../../src/controllers/product.controller');
 
-const { returnService, mockProducts } = require("../mockData/mocks");
+const { returnService, mockProducts, newInsertMock } = require("../mockData/mocks");
 
 describe("Testando controller de products", () => {
   describe("Listar todos os produtos", () => {
@@ -47,4 +47,32 @@ describe("Testando controller de products", () => {
 
   });
   afterEach(sinon.restore);
+
+  describe('Testa a função inserir', () => {
+    it('Testa se ao inserir um novo produto retorna o id e o nome', async () => {
+      const res = {};
+      const req = { body: 4 };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(productService, 'serviceInsert').resolves({ type: null, message: 4 });
+      await productController.controllerInsert(req, res);
+
+      expect(res.status.calledWith(201)).to.be.equal(true);
+    });
+        it("Testa se ao inserir um novo produto faltando dados retorna um erro", async () => {
+          const res = {};
+          const req = { body: 4 };
+          res.status = sinon.stub().returns(res);
+          res.json = sinon.stub().returns();
+
+          sinon
+            .stub(productService, "serviceInsert")
+            .resolves({ type: 'error', message: 4 });
+          await productController.controllerInsert(req, res);
+
+          expect(res.status.calledWith(201)).to.be.equal(false);
+          expect(res.json.calledWith(newInsertMock[0])).to.be.equal(false);
+        });
+  });
 });

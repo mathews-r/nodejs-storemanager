@@ -13,12 +13,20 @@ const mockProducts = [
   },
 ];
 
-returnService = {
+const returnService = {
   status: 200,
   message: mockProducts,
 }
 
+const newInsertMock = [
+    {
+    id: 4,
+    name: "Teste do Mock",
+  },
+]
+
 module.exports = {
   mockProducts,
   returnService,
+  newInsertMock,
 };

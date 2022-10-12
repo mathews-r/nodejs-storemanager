@@ -3,7 +3,7 @@ const sinon = require("sinon");
 const productModel = require("../../../src/models/product.model");
 const connection = require("../../../src/models/db/connection");
 
-const { mockProducts } = require("../mockData/mocks");
+const { mockProducts, newInsertMock } = require("../mockData/mocks");
 const { beforeEach, afterEach } = require("mocha");
 
 describe("Testando model de products", () => {
@@ -24,4 +24,12 @@ describe("Testando model de products", () => {
     });
     afterEach(sinon.restore)
   });
+
+  describe('Insere um novo produto', () => {
+    it('Teste se ao inserir um produto retorna o id e o nome do mesmo', async () => {
+      sinon.stub(connection, "execute").resolves([{ insertId: 99 }]);
+      const result = await productModel.modelInsert(newInsertMock);
+      expect(result).to.be.eq(99);
+    })
+  })
 });
