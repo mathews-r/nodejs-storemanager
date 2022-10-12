@@ -8,7 +8,6 @@ const modelGetAll = async () => {
   ON sp.sale_id = s.id
   ORDER BY sp.sale_id ASC`,
   );
-
   return result;
 };
 
@@ -20,7 +19,6 @@ const modelGetById = async (id) => {
      ON sp.product_id = s.id = ${id}`,
     [id],
   );
-    console.log('model', result);
   return result;
 };
 

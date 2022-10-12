@@ -23,8 +23,19 @@ const serviceInsert = async (name) => {
   return { type: null, message: result };
 };
 
+const serviceDelete = async (id) => {
+  const result = await productModel.modelDelete(id);
+
+  if (result) {
+    return { type: 'error', message: 'Product not found' };
+  }
+
+  return { type: null, message: result };
+};
+
 module.exports = {
   serviceGetAll,
   serviceGetById,
   serviceInsert,
+  serviceDelete,
 };

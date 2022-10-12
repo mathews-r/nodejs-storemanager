@@ -22,8 +22,17 @@ const modelInsert = async (name) => {
   return insertId;
 };
 
+const modelDelete = async (id) => {
+    await connection.execute(
+    'DELETE FROM StoreManager.sales WHERE id = ?', [id],
+  );
+
+  return 'DELETED';
+};
+
 module.exports = {
   modelGetAll,
   modelGetById,
   modelInsert,
+  modelDelete,
 };

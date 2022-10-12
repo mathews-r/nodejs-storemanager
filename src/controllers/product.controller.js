@@ -24,8 +24,17 @@ const controllerInsert = async (req, res) => {
   res.status(201).json({ id: message, name });
 };
 
+const controllerDelete = async (req, res) => {
+  const { message } = await productService.serviceDelete();
+
+  if (!message) return res.status(404).json({ message });
+
+  res.status(204).json();
+};
+
 module.exports = {
   controllerGetAll,
   controllerGetById,
   controllerInsert,
+  controllerDelete,
 };
