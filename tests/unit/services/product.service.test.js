@@ -2,7 +2,6 @@ const { expect } = require("chai");
 const sinon = require("sinon");
 const productModel = require("../../../src/models/product.model");
 const productService = require('../../../src/services/product.service')
-const connection = require("../../../src/models/db/connection");
 
 const { mockProducts, newInsertMock } = require("../mockData/mocks");
 const { afterEach } = require("mocha");

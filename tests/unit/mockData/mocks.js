@@ -25,8 +25,33 @@ const newInsertMock = [
   },
 ]
 
+const mockSales = [
+  {
+    saleId: 1,
+    productId: 2,
+    quantity: 10,
+    date: "2022-10-12T13:32:57.000Z",
+  },
+  {
+    saleId: 2,
+    productId: 3,
+    quantity: 15,
+    date: "2022-10-12T13:32:57.000Z",
+  },
+];
+
+const mockUnitsale = [
+  {
+    "productId": 2,
+    "quantity": 10,
+    "date": "2022-10-12T13:32:57.000Z"
+  }
+]
+
 module.exports = {
   mockProducts,
   returnService,
   newInsertMock,
+  mockSales,
+  mockUnitsale,
 };
