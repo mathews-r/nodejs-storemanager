@@ -1,4 +1,5 @@
 const salesModel = require('../models/sales.model');
+const productModel = require('../models/product.model');
 
 const serviceGetAll = async () => {
   const result = await salesModel.modelGetAll();
@@ -15,16 +16,24 @@ const serviceGetById = async (id) => {
   return { type: 'error', message: 'Sale not found' };
 };
 
-// const serviceInsert = async (array) => {
-//   const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+const serviceInsert = async (array) => {
+  const data = array.map((item) => productModel.modelGetById(item.productId));
+  const result = await Promise.all(data);
+  const validateResult = result.some((item) => item === undefined);
 
-//   const result = await salesModel.modelInsert(array, date);
+  if (validateResult) return { type: 'error', message: 'Product not found' };
 
-//   return { type: null, message: result };
-// };
+  const saleId = await salesModel.modelInsert();
+
+  array.forEach(async ({ productId, quantity }) => {
+    await salesModel.modelInsertProductSales(saleId, productId, quantity);
+  });
+
+  return { type: null, message: saleId };
+};
 
 module.exports = {
   serviceGetAll,
   serviceGetById,
-  // serviceInsert,
+  serviceInsert,
 };
