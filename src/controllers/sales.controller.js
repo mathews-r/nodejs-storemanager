@@ -12,17 +12,17 @@ const controllerGetById = async (req, res) => {
   return res.status(200).json(message);
 };
 
-const controllerInsert = async (req, res) => {
-  const array = req.body;
+// const controllerInsert = async (req, res) => {
+//   const array = req.body;
 
-  const { type, message } = await salesService.serviceInsert(array);
+//   const { type, message } = await salesService.serviceInsert(array);
 
-  if (type) return res.status(404).json({ message: 'Product not found' });
+//   if (type) return res.status(404).json({ message: 'Product not found' });
 
-  return res.status(201).json({ id: message, itemsSold: array });
-};
+//   return res.status(201).json({ id: message, itemsSold: array });
+// };
 module.exports = {
   controllerGetAll,
   controllerGetById,
-  controllerInsert,
+  // controllerInsert,
 };

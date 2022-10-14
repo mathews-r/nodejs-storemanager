@@ -22,28 +22,30 @@ const modelGetById = async (id) => {
   return result;
 };
 
-const modelInsertSale = async ({ saleId, productId, quantity }) => {
-    await connection.execute(
-      'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
-      [saleId, productId, quantity],
-    );
-};
+// const modelInsertSale = async ({ saleId, productId, quantity }) => {
+//   console.log({ saleId, productId, quantity });
+//     await connection.execute(
+//       'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
+//       [saleId, productId, quantity],
+//     );
+// };
 
-const modelInsert = async (array, date) => {
-  const [result] = await connection.execute(
-    'INSERT INTO StoreManager.sales (date) VALUES (?)', [date],
-  );
-  if (result.affectedRows === 1) {
-    array.forEach((item) => {
-      modelInsertSale({ ...item, saleId: result.insertId });
-    });
-    return result.insertId;
-  }
-  return null;
-};
+// const modelInsert = async (array, date) => {
+//   console.log(array);
+//   const [result] = await connection.execute(
+//     'INSERT INTO StoreManager.sales (date) VALUES (?)', [date],
+//   );
+//   if (result.affectedRows === 1) {
+//     array.forEach((item) => {
+//       modelInsertSale({ ...item, saleId: result.insertId });
+//     });
+//     return result.insertId;
+//   }
+//   return null;
+// };
 
 module.exports = {
   modelGetAll,
   modelGetById,
-  modelInsert,
+  // modelInsert,
 };

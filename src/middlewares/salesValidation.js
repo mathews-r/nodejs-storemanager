@@ -17,7 +17,7 @@ const productValidation = async (req, res, next) => {
   //   }
   //   return null;
   // });
-  next();
+  return next();
 };
 
 const quantityValidation = (req, res, next) => {
