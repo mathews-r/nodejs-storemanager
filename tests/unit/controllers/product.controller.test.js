@@ -76,8 +76,6 @@ describe("Testando controller de products", () => {
     it("Testa se o produto foi alterado", async () => {
       const res = {};
       const req = { params: { id: 1 }, body: { name: "Thor" } };
-      const { name } = req.body;
-      const { id } = req.params;
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
       sinon
@@ -86,19 +84,17 @@ describe("Testando controller de products", () => {
       await productController.controllerUpdate(req, res);
       expect(res.status.calledWith(200)).to.be.eq(true);
     });
-        it("Testa se o produto não foi alterado", async () => {
-          const res = {};
-          const req = { params: { id: 1 }, body: { name: "Thor" } };
-          const { name } = req.body;
-          const { id } = req.params;
-          res.status = sinon.stub().returns(res);
-          res.json = sinon.stub().returns();
-          sinon
-            .stub(productService, "serviceUpdate")
-            .resolves({ type: "error", message: "Product not found" });
-          await productController.controllerUpdate(req, res);
-          expect(res.status.calledWith(404)).to.be.eq(true);
-        });
+    it("Testa se o produto não foi alterado", async () => {
+      const res = {};
+      const req = { params: { id: 1 }, body: { name: "Thor" } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productService, "serviceUpdate")
+        .resolves({ type: "error", message: "Product not found" });
+      await productController.controllerUpdate(req, res);
+      expect(res.status.calledWith(404)).to.be.eq(true);
+    });
     it("Testa se o produto foi inserido", async () => {
       const res = {};
       const req = { body: { name: "Tester" } };
