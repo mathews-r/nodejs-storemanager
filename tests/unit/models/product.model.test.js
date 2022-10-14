@@ -35,6 +35,11 @@ describe("Testando model de products", () => {
       const result = await productModel.modelUpdate("Thor", 99);
       expect(result).to.be.eq(null);
     });
+    it("Testa se adicionou um novo produto", async () => {
+      sinon.stub(connection, "execute").resolves([{ insertId: 1 }]);
+      const result = await productModel.modelInsert({ name: "Testando" });
+      expect(result).to.be.equal(1);
+    });
     afterEach(sinon.restore);
   });
 });

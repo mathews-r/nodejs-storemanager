@@ -61,6 +61,18 @@ describe("Testando controller de products", () => {
       expect(res.status.calledWith(204)).to.be.eq(true);
       expect(res.json.calledWith()).to.be.eq(true);
     });
+    it("Testa se não deletou um produto", async () => {
+      const res = {};
+      const req = { params: { id: 99 } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productService, "serviceDelete")
+        .resolves({ type: "error", message: "Product not found" });
+      await productController.controllerDelete(req, res);
+      expect(res.status.calledWith(404)).to.be.eq(true);
+    });
     it("Testa se o produto foi alterado", async () => {
       const res = {};
       const req = { params: { id: 1 }, body: { name: "Thor" } };
@@ -73,6 +85,41 @@ describe("Testando controller de products", () => {
         .resolves({ id: 1, name: "Thor" });
       await productController.controllerUpdate(req, res);
       expect(res.status.calledWith(200)).to.be.eq(true);
+    });
+        it("Testa se o produto não foi alterado", async () => {
+          const res = {};
+          const req = { params: { id: 1 }, body: { name: "Thor" } };
+          const { name } = req.body;
+          const { id } = req.params;
+          res.status = sinon.stub().returns(res);
+          res.json = sinon.stub().returns();
+          sinon
+            .stub(productService, "serviceUpdate")
+            .resolves({ type: "error", message: "Product not found" });
+          await productController.controllerUpdate(req, res);
+          expect(res.status.calledWith(404)).to.be.eq(true);
+        });
+    it("Testa se o produto foi inserido", async () => {
+      const res = {};
+      const req = { body: { name: "Tester" } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      await productController.controllerInsert(req, res);
+      expect(res.status.calledWith(201)).to.be.equal(true);
+    });
+    it("Testa se o produto não foi inserido", async () => {
+      const res = {};
+      const req = { body: {} };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productService, "serviceInsert")
+        .resolves({ type: "error", message: "name is required" });
+      await productController.controllerInsert(req, res);
+      expect(res.status.calledWith(404));
+      expect(res.json.calledWith({ message: "name is required" })).to.be.equal(
+        true
+      );
     });
     afterEach(sinon.restore);
   });

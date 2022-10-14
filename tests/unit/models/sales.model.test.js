@@ -6,13 +6,10 @@ const connection = require("../../../src/models/db/connection");
 const { mockSales, mockUnitsale } = require("../mockData/mocks");
 const { afterEach } = require("mocha");
 
-
 describe("Testando model de sales", () => {
   describe("Listar todos os sales", () => {
-    
     it("Testa se retonar um array com todas as vendas", async () => {
-      
-      sinon.stub(connection, "execute").resolves([mockSales])
+      sinon.stub(connection, "execute").resolves([mockSales]);
       const result = await salesModel.modelGetAll();
       expect(result).to.be.eq(mockSales);
     });
@@ -21,6 +18,6 @@ describe("Testando model de sales", () => {
       const result = await salesModel.modelGetById(1);
       expect(result[0]).to.be.eq(mockUnitsale[0]);
     });
-    afterEach(sinon.restore)
+    afterEach(sinon.restore);
   });
 });

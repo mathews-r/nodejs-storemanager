@@ -2,7 +2,6 @@ const { expect } = require("chai");
 const sinon = require("sinon");
 const productModel = require("../../../src/models/product.model");
 const productService = require("../../../src/services/product.service");
-const connection = require("../../../src/models/db/connection");
 
 const { mockProducts } = require("../mockData/mocks");
 const { afterEach } = require("mocha");
@@ -43,6 +42,16 @@ describe("Testando service de products", () => {
       sinon.stub(productModel, "modelUpdate").resolves([{ affectedRows: 1 }]);
       const [result] = await productService.serviceUpdate("Thor", 1);
       expect(result.affectedRows).to.be.eq(1);
+    });
+    it("Testa se o produto não foi alterado", async () => {
+      sinon.stub(productModel, "modelUpdate").resolves(undefined);
+      const result = await productService.serviceUpdate("Thor", 99);
+      expect(result.message).to.be.eq('Product not found');
+    });
+    it("Testa se inseri um novo produto", async () => {
+      sinon.stub(productModel, "modelInsert").resolves(1);
+      const result = await productService.serviceInsert({ name: "Testando" });
+      expect(result.type).to.be.equal(null);
     });
   });
   afterEach(sinon.restore);
