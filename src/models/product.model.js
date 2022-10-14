@@ -30,9 +30,20 @@ const modelDelete = async (id) => {
   return affectedRows;
 };
 
+const modelUpdate = async (name, id) => {
+  const [result] = await connection.execute(
+    'UPDATE StoreManager.products SET name = ? WHERE id = ?', [name, id],
+  );
+  if (result.affectedRows === 1) {
+    return { id, name };
+  }
+  return null;
+};
+
 module.exports = {
   modelGetAll,
   modelGetById,
   modelInsert,
   modelDelete,
+  modelUpdate,
 };
