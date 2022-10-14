@@ -1,17 +1,16 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
 const productModel = require("../../../src/models/product.model");
-const productService = require('../../../src/services/product.service')
+const productService = require("../../../src/services/product.service");
+const connection = require("../../../src/models/db/connection");
 
-const { mockProducts, newInsertMock } = require("../mockData/mocks");
+const { mockProducts } = require("../mockData/mocks");
 const { afterEach } = require("mocha");
 
 describe("Testando service de products", () => {
-
   describe("Listar todos os produtos", () => {
-    
     it("Deve retornar um array com todos os elementos", async () => {
-      sinon.stub(productModel, 'modelGetAll').resolves(mockProducts);
+      sinon.stub(productModel, "modelGetAll").resolves(mockProducts);
 
       const result = await productService.serviceGetAll();
       expect(result.message).to.be.eq(mockProducts);
@@ -24,20 +23,27 @@ describe("Testando service de products", () => {
     });
 
     it("Deve retonar uma mensagem se não houver nenhum produto", async () => {
-          sinon.stub(productModel, "modelGetById").resolves(undefined);
-          const result = await productService.serviceGetById(1);
-          expect(result.message).to.eq('Product not found');
+      sinon.stub(productModel, "modelGetById").resolves(undefined);
+      const result = await productService.serviceGetById(1);
+      expect(result.message).to.eq("Product not found");
+    });
+    it("Testa se deletou um produto", async () => {
+      sinon
+        .stub(productModel, "modelDelete")
+        .resolves({ type: null, message: 1 });
+      const result = await productService.serviceDelete(1);
+      expect(result.type).to.be.eq(null);
+    });
+    it("Testa se não deletou um produto", async () => {
+      sinon.stub(productModel, "modelDelete").resolves(0);
+      const result = await productService.serviceDelete(99);
+      expect(result.type).to.be.eq("error");
+    });
+    it("Testa se o produto foi alterado", async () => {
+      sinon.stub(productModel, "modelUpdate").resolves([{ affectedRows: 1 }]);
+      const [result] = await productService.serviceUpdate("Thor", 1);
+      expect(result.affectedRows).to.be.eq(1);
     });
   });
-
-  describe('Testa inserir novo produto', () => {
-    it('Testa se ao inserir um novo produto retorna o id e o nome', async () => {
-      sinon.stub(productModel, 'modelInsert').resolves([newInsertMock]);
-
-      const result = await productService.serviceInsert({ name: "Teste do Mock" });
-      expect(result.type).to.equal(null);
-      expect(result.message).to.deep.equal([newInsertMock]);
-    })
-  })
   afterEach(sinon.restore);
 });

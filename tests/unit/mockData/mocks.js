@@ -13,6 +13,22 @@ const mockProducts = [
   },
 ];
 
+const updateMockProducts = [
+  {
+    id: 1,
+    name: "Machado Thor",
+  },
+  {
+    id: 2,
+    name: "Traje de encolhimento",
+  },
+  {
+    id: 3,
+    name: "Escudo do Capitão América",
+  },
+];
+
+
 const returnService = {
   status: 200,
   message: mockProducts,
@@ -54,4 +70,5 @@ module.exports = {
   newInsertMock,
   mockSales,
   mockUnitsale,
+  updateMockProducts,
 };
