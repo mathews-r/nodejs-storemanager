@@ -56,10 +56,12 @@ const mockSales = [
   },
 ];
 
-const mockUnitValue = [{
-  productId: 1,
-  quantity: 1,
-}]
+const mockUnitValue = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+];
 
 const mockUnitsale = [
   {

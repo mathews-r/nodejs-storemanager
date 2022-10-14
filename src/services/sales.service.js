@@ -32,8 +32,17 @@ const serviceInsert = async (array) => {
   return { type: null, message: saleId };
 };
 
+const serviceDeleteSale = async (id) => {
+  const result = await salesModel.modelDeleteSale(id);
+  if (result === 0) {
+    return { type: 'error', message: 'Sale not found' };
+  }
+  return { type: null, message: result };
+};
+
 module.exports = {
   serviceGetAll,
   serviceGetById,
   serviceInsert,
+  serviceDeleteSale,
 };
