@@ -4,7 +4,7 @@ const sinon = require("sinon");
 const salesModel = require("../../../src/models/sales.model");
 const salesService = require("../../../src/services/sales.service");
 
-const { mockSales } = require("../mockData/mocks");
+const { mockSales, mockUnitValue } = require("../mockData/mocks");
 
 describe("Testando service de sales", () => {
   describe("Listar todos os produtos", () => {
@@ -25,6 +25,11 @@ describe("Testando service de sales", () => {
       const result = await salesService.serviceGetById(1);
       expect(result.type).to.be.eq(null);
     });
+    it('Testa se inseriu uma venda', async () => {
+      sinon.stub(salesModel, 'modelInsertProductSales').resolves(mockSales[0]);
+      const result = await salesService.serviceInsert(mockUnitValue);
+      expect(result.type).to.be.eq(null)
+    })
   });
   afterEach(sinon.restore);
 });

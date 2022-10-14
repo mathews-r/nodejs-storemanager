@@ -27,6 +27,7 @@ const modelInsertProductSales = async (saleId, productId, quantity) => {
       'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
       [saleId, productId, quantity],
     );
+  return null;
 };
 
 const modelInsert = async () => {

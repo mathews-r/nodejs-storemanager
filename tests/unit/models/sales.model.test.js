@@ -18,6 +18,13 @@ describe("Testando model de sales", () => {
       const result = await salesModel.modelGetById(1);
       expect(result[0]).to.be.eq(mockUnitsale[0]);
     });
+    it('Testa se inseriu uma venda', async () => {
+      sinon.stub(connection, "execute").resolves([{ insertId: 2 }]);
+      const result = await salesModel.modelInsert();
+      expect(result).to.be.equal(2);
+      const result2 = await salesModel.modelInsertProductSales(2, 2, 2)
+      expect(result2).to.be.equal(null)
+    });
     afterEach(sinon.restore);
   });
 });

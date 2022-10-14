@@ -56,6 +56,11 @@ const mockSales = [
   },
 ];
 
+const mockUnitValue = [{
+  productId: 1,
+  quantity: 1,
+}]
+
 const mockUnitsale = [
   {
     "productId": 2,
@@ -71,4 +76,5 @@ module.exports = {
   mockSales,
   mockUnitsale,
   updateMockProducts,
+  mockUnitValue,
 };
