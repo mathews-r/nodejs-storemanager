@@ -6,9 +6,14 @@ const { productValidation, quantityValidation } = require('../middlewares/salesV
 const salesRouter = express.Router();
 
 salesRouter.get('/', salesController.controllerGetAll);
+
 salesRouter.get('/:id', salesController.controllerGetById);
+
 salesRouter.post('/', productValidation, quantityValidation, salesController.controllerInsert);
+
 salesRouter.delete('/:id', salesController.controllerDeleteSale);
+
+salesRouter.put('/:id', quantityValidation, productValidation, salesController.controllerUpdate);
 
 module.exports = {
   salesRouter,

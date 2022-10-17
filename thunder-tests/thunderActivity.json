@@ -112,16 +112,22 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products/999",
-    "url": "http://localhost:3000/sales/1",
-    "method": "DELETE",
+    "url": "http://localhost:3000/products/search?q=",
+    "method": "GET",
     "sortNum": 0,
     "created": "2022-10-14T00:39:48.631Z",
-    "modified": "2022-10-14T19:15:44.459Z",
+    "modified": "2022-10-17T19:52:30.662Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "",
+        "isPath": false
+      }
+    ],
     "body": {
       "type": "json",
-      "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 5\n  }\n]",
+      "raw": "[\n  {\n    \"quantity\": 10\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 50\n  }\n]",
       "form": []
     },
     "tests": []
