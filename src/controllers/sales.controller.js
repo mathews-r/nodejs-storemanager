@@ -30,21 +30,21 @@ const controllerDeleteSale = async (req, res) => {
   return res.status(204).json();
 };
 
-// const controllerUpdate = async (req, res) => {
-//   const { id } = req.params;
-//   const array = req.body;
+const controllerUpdate = async (req, res) => {
+  const { id } = req.params;
+  const array = req.body;
 
-//   const result = await salesService.serviceUpdateSale(array, Number(id));
+  const result = await salesService.serviceUpdateSale(array, Number(id));
 
-//   if (result.type) return res.status(404).json({ message: result.message });
+  if (result.type) return res.status(404).json({ message: result.message });
 
-//   res.status(200).json({ saleId: id, itemsUpdated: array });
-// };
+  res.status(200).json({ saleId: id, itemsUpdated: array });
+};
 
 module.exports = {
   controllerGetAll,
   controllerGetById,
   controllerInsert,
   controllerDeleteSale,
-  // controllerUpdate,
+  controllerUpdate,
 };
