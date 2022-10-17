@@ -46,17 +46,17 @@ const modelDeleteSale = async (id) => {
   return affectedRows;
 };
 
-const modelUpdateSale = async (array, id) => {
-  array.forEach((item) => connection.execute(
-    'UPDATE StoreManager.sales_products SET productId = ? quantity = ? WHERE id = ?',
-    [item.productId, item.quantity, id],
-  ));
+// const modelUpdateSale = async (array, id) => {
+//   array.forEach((item) => connection.execute(
+//     'UPDATE StoreManager.sales_products SET productId = ? quantity = ? WHERE id = ?',
+//     [item.productId, item.quantity, id],
+//   ));
 
-  if (array.length > 0) {
-    return { id, array };
-  }
-  return null;
-};
+//   if (array.length > 0) {
+//     return { id, array };
+//   }
+//   return null;
+// };
 
 module.exports = {
   modelGetAll,
@@ -64,5 +64,5 @@ module.exports = {
   modelInsert,
   modelInsertProductSales,
   modelDeleteSale,
-  modelUpdateSale,
+  // modelUpdateSale,
 };

@@ -13,7 +13,7 @@ salesRouter.post('/', productValidation, quantityValidation, salesController.con
 
 salesRouter.delete('/:id', salesController.controllerDeleteSale);
 
-salesRouter.put('/:id', quantityValidation, productValidation, salesController.controllerUpdate);
+// salesRouter.put('/:id', quantityValidation, productValidation, salesController.controllerUpdate);
 
 module.exports = {
   salesRouter,
