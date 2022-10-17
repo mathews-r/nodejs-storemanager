@@ -46,12 +46,22 @@ describe("Testando service de products", () => {
     it("Testa se o produto não foi alterado", async () => {
       sinon.stub(productModel, "modelUpdate").resolves(undefined);
       const result = await productService.serviceUpdate("Thor", 99);
-      expect(result.message).to.be.eq('Product not found');
+      expect(result.message).to.be.eq("Product not found");
     });
     it("Testa se inseri um novo produto", async () => {
       sinon.stub(productModel, "modelInsert").resolves(1);
       const result = await productService.serviceInsert({ name: "Testando" });
       expect(result.type).to.be.equal(null);
+    });
+    it("Testa se busca o produto pela query", async () => {
+      sinon.stub(productModel, "getByQuery").resolves(mockProducts[0]);
+      const result = await productService.serviceGetByQuery("Martelo");
+      expect(result).to.be.eq(mockProducts[0]);
+    });
+    it("Testa se não busca o produto pela query", async () => {
+      sinon.stub(productModel, "getByQuery").resolves(undefined);
+      const result = await productService.serviceGetByQuery("Xablau");
+      expect(result.type).to.deep.eq("error");
     });
   });
   afterEach(sinon.restore);

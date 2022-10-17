@@ -113,9 +113,30 @@ describe("Testando controller de products", () => {
         .resolves({ type: "error", message: "name is required" });
       await productController.controllerInsert(req, res);
       expect(res.status.calledWith(404));
-      expect(res.json.calledWith({ message: "name is required" })).to.be.equal(
-        true
-      );
+      expect(res.json.calledWith({ message: "name is required" }));
+    });
+    it("Testa se o produto foi inserido pela query", async () => {
+      const res = {};
+      const req = { query: { q: "Martelo" } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productService, "serviceInsert")
+        .resolves({ type: null, message: mockProducts[0] });
+      await productController.controllerGetByQuery(req, res);
+      expect(res.status.calledWith(200));
+      expect(res.json.calledWith(mockProducts[0]));
+    });
+    it("Testa se o produto não foi inserido pela query", async () => {
+      const res = {};
+      const req = { query: { q: "Xablau" } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productService, "serviceGetByQuery")
+        .resolves({ type: "error", message: "Product not found" });
+      await productController.controllerGetByQuery(req, res);
+      expect(res.status.calledWith(404));
     });
     afterEach(sinon.restore);
   });

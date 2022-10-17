@@ -28,18 +28,17 @@ const updateMockProducts = [
   },
 ];
 
-
 const returnService = {
   status: 200,
   message: mockProducts,
-}
+};
 
 const newInsertMock = [
-    {
+  {
     id: 4,
     name: "Teste do Mock",
   },
-]
+];
 
 const mockSales = [
   {
@@ -65,11 +64,29 @@ const mockUnitValue = [
 
 const mockUnitsale = [
   {
-    "productId": 2,
-    "quantity": 10,
-    "date": "2022-10-12T13:32:57.000Z"
-  }
-]
+    productId: 2,
+    quantity: 10,
+    date: "2022-10-12T13:32:57.000Z",
+  },
+];
+
+const mockUpdateSale = [
+  {
+    productId: 1,
+    quantity: 10,
+  },
+  {
+    productId: 2,
+    quantity: 50,
+  },
+];
+
+const mockUpdateSaleInvalid = [
+  {
+    productId: 999,
+    quantity: 10,
+  },
+];
 
 module.exports = {
   mockProducts,
@@ -79,4 +96,6 @@ module.exports = {
   mockUnitsale,
   updateMockProducts,
   mockUnitValue,
+  mockUpdateSale,
+  mockUpdateSaleInvalid,
 };

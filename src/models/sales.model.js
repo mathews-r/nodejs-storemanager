@@ -51,7 +51,6 @@ const modelUpdateSale = async (quantity, id, productId) => {
     'UPDATE StoreManager.sales_products SET quantity = ? WHERE sale_id = ? AND product_id = ?',
     [quantity, id, productId],
   );
-
   return affectedRows;
 };
 

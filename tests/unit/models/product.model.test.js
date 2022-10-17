@@ -40,6 +40,11 @@ describe("Testando model de products", () => {
       const result = await productModel.modelInsert({ name: "Testando" });
       expect(result).to.be.equal(1);
     });
+    it("Testa se buscou o produto pela query", async () => {
+      sinon.stub(connection, "execute").resolves([mockProducts[0]]);
+      const result = await productModel.getByQuery("Martelo");
+      expect(result).to.be.equal(mockProducts[0]);
+    });
     afterEach(sinon.restore);
   });
 });

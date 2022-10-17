@@ -56,22 +56,72 @@ describe("Testes no controller Sales", () => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
 
-      sinon.stub(salesService, 'serviceInsert').resolves({ type: null, message: 10 });
+      sinon
+        .stub(salesService, "serviceInsert")
+        .resolves({ type: null, message: 10 });
       await salesController.controllerInsert(req, res);
-      expect(res.status.calledWith(201)).to.be.eq(true)
+      expect(res.status.calledWith(201)).to.be.eq(true);
     });
-        it("Deve dar erro ao tentar cadastrar uma venda invalida", async () => {
-          const res = {};
-          const req = { body: {} };
-          res.status = sinon.stub().returns(res);
-          res.json = sinon.stub().returns();
+    it("Deve dar erro ao tentar cadastrar uma venda invalida", async () => {
+      const res = {};
+      const req = { body: {} };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
 
-          sinon
-            .stub(salesService, "serviceInsert")
-            .resolves({ type: 'error', message: 10 });
-          await salesController.controllerInsert(req, res);
-          expect(res.status.calledWith(404)).to.be.eq(true);
-        });
+      sinon
+        .stub(salesService, "serviceInsert")
+        .resolves({ type: "error", message: 10 });
+      await salesController.controllerInsert(req, res);
+      expect(res.status.calledWith(404)).to.be.eq(true);
+    });
+    it("Testa se deletou a venda", async () => {
+      const res = {};
+      const req = { params: { id: 1 } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(salesService, "serviceDeleteSale")
+        .resolves({ type: null, message: 10 });
+      await salesController.controllerDeleteSale(req, res);
+      expect(res.status.calledWith(204)).to.be.eq(true);
+    });
+    it("Testa se não deletou a venda", async () => {
+      const res = {};
+      const req = { params: { id: 1 } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(salesService, "serviceDeleteSale")
+        .resolves({ type: "error", message: 10 });
+      await salesController.controllerDeleteSale(req, res);
+      expect(res.status.calledWith(404)).to.be.eq(true);
+    });
+    it("Testa se alterou uma venda", async () => {
+      const res = {};
+      const req = { params: { id: 1 } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(salesService, "serviceUpdateSale")
+        .resolves({ type: null, message: 10 });
+      await salesController.controllerUpdate(req, res);
+      expect(res.status.calledWith(200)).to.be.eq(true);
+    });
+    it("Testa se não alterou uma venda", async () => {
+      const res = {};
+      const req = { params: { id: 1 } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(salesService, "serviceUpdateSale")
+        .resolves({ type: "error", message: 10 });
+      await salesController.controllerUpdate(req, res);
+      expect(res.status.calledWith(404)).to.be.eq(true);
+    });
     afterEach(sinon.restore);
   });
 });
